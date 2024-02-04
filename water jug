@@ -3,32 +3,32 @@ from collections import deque
 def water_jug_bfs(capacity_A,capacity_B,target):
   visited = set()
   queue = deque([(0,0)])
-    while queue:
-      current_state =  queue.popleft()
-        if current_state[0] == target or current_state[1] == target:
-            return current_state
+  while queue:
+    current_state =  queue.popleft()
+    if current_state[0] == target or current_state[1] == target:
+      return current_state
 
-        for action in ["fill A", "fill B", "empty A", "empty B", "pour A to B", "pour B to A"]:
-            if action == "fill A":
-                new_state = (capacity_A, current_state[1])
-            elif action == "fill B":
-                new_state = (current_state[0], capacity_B)
-            elif action == "empty A":
-                new_state = (0, current_state[1])
-            elif action == "empty B":
-                new_state = (current_state[0], 0)
-            elif action == "pour A to B":
-                pour_amount = min(current_state[0], capacity_B - current_state[1])
-                new_state = (current_state[0] - pour_amount, current_state[1] + pour_amount)
-            elif action == "pour B to A":
-                pour_amount = min(current_state[1], capacity_A - current_state[0])
-                new_state = (current_state[0] + pour_amount, current_state[1] - pour_amount)
+    for action in ["fill A", "fill B", "empty A", "empty B", "pour A to B", "pour B to A"]:
+      if action == "fill A":
+        new_state = (capacity_A, current_state[1])
+      elif action == "fill B":
+        new_state = (current_state[0], capacity_B)
+      elif action == "empty A":
+        new_state = (0, current_state[1])
+      elif action == "empty B":
+        new_state = (current_state[0], 0)
+      elif action == "pour A to B":
+        pour_amount = min(current_state[0], capacity_B - current_state[1])
+        new_state = (current_state[0] - pour_amount, current_state[1] + pour_amount)
+      elif action == "pour B to A":
+        pour_amount = min(current_state[1], capacity_A - current_state[0])
+        new_state = (current_state[0] + pour_amount, current_state[1] - pour_amount)
 
-            if new_state not in visited:
-                visited.add(new_state)
-                queue.append(new_state)
+      if new_state not in visited:
+        visited.add(new_state)
+        queue.append(new_state)
 
-    return None
+  return None
 
 
 
